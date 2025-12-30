@@ -1,1 +1,26 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+df=pd.read_csv("CoffeeConsumption.csv")
+df.head()
+
+df.to_csv("CoffeeConsumption.csv",index=False)
+
+print(len(df))
+df.head()
+
+df = df.dropna()
+df = df.drop_duplicates()
+print(len(df))
+
+top10 = df.nlargest(10, 'perCapitaCons2016')
+
+plt.figure(figsize=(10,6))
+plt.barh(top10['country'], top10['perCapitaCons2016'],color='brown')
+plt.ylabel('country')
+plt.xlabel("Per capita consumption of coffee (kg)")
+plt.title("Top 10 countries for coffee consumption per capita")
+plt.gca().invert_yaxis()
+plt.show()
